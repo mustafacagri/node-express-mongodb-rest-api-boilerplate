@@ -9,7 +9,6 @@ router.use(function (req, res, next) {
 })
 
 router.post('/signup', [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted], controller.signup)
-
 router.post('/signin', controller.signin)
 
 module.exports = router

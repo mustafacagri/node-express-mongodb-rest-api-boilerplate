@@ -8,6 +8,7 @@ router.use(function (req, res, next) {
   next()
 })
 
+// you can test your token with these URLs for authorization
 router.get('/test/all', controller.allAccess)
 router.get('/test/user', [authJwt.verifyToken], controller.userAccess)
 router.get('/test/mod', [authJwt.verifyToken, authJwt.isModerator], controller.moderatorAccess)
