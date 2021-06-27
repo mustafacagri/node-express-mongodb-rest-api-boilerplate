@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
+const authJwt = require('../../middlewares/user/authJwt')
 
-router.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Headers', 'x-access-token, Origin, Content-Type, Accept')
-  next()
-})
+router.use(authJwt.verifyToken)
+router.use(authJwt.isAdmin)
 
 router.use('/users', require('./users'))
+router.use('/initialize', require('./initialize'))
 
 module.exports = router

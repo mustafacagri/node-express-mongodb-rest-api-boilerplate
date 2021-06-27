@@ -1,8 +1,15 @@
+const express = require('express')
+const router = express.Router()
 const jwt = require('jsonwebtoken')
 const config = require('../../config/auth')
 const Role = require('../../models/role')
 const User = require('../../models/user')
 const { response } = require('../../classes')
+
+router.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Headers', 'x-access-token, Origin, Content-Type, Accept')
+  next()
+})
 
 verifyToken = (req, res, next) => {
   let token = req.headers['x-access-token']
@@ -26,7 +33,6 @@ isAdmin = (req, res, next) => {
       res.status(500).send(new response.fail(err))
       return
     }
-
     Role.find(
       {
         _id: { $in: user.roles }
@@ -36,14 +42,12 @@ isAdmin = (req, res, next) => {
           res.status(500).send(new response.fail(err))
           return
         }
-
         for (let i = 0; i < roles.length; i++) {
           if (roles[i].name === 'admin') {
             next()
             return
           }
         }
-
         res.status(403).send(new response.fail('Require Admin Role!'))
         return
       }
@@ -57,7 +61,6 @@ isModerator = (req, res, next) => {
       res.status(500).send(new response.fail(err))
       return
     }
-
     Role.find(
       {
         _id: { $in: user.roles }
@@ -67,14 +70,12 @@ isModerator = (req, res, next) => {
           res.status(500).send(new response.fail(err))
           return
         }
-
         for (let i = 0; i < roles.length; i++) {
           if (roles[i].name === 'moderator') {
             next()
             return
           }
         }
-
         res.status(403).send(new response.fail('Require Moderator Role!'))
         return
       }

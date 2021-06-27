@@ -66,3 +66,20 @@ exports.updateUser = async (req, res) => {
     }
   } catch (err) {}
 }
+
+exports.deleteUser = async (req, res) => {
+  try {
+    await res.user.remove()
+    res.json(new response.success(null, 'User is deleted'))
+  } catch (err) {
+    return res.status(500).json(new response.fail(err.message))
+  }
+}
+
+exports.createUser = async (req, res) => {
+  try {
+    res.json(12)
+  } catch (error) {
+    res.status(500).json(123)
+  }
+}

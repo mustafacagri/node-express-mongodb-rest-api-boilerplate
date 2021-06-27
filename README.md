@@ -12,6 +12,10 @@ Express.js, mongoose, requireDir, slug, winston, cors, bcryptjs, jsonwebtoken, l
 ## .env File
 Create an .env file and write this into it:
 
+## Initialize
+`/api/v1.0.0/admin/initialize`: You should make a get request to this url before you start. This url creates the starter data to start project. Ex: In Role Document => Admin, Moderator, user etc... 
+
+
 ```
 NODE_ENV = development
 DB_URL = mongodb://localhost/nemrab
